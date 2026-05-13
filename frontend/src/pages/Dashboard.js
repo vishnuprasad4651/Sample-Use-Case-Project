@@ -78,7 +78,7 @@ function Dashboard({ currentUser }) {
               <p style={{ color: '#636e72', marginBottom: '1rem' }}>
                 {deviation.customerContext.length > 80
                   ? deviation.customerContext.substring(0, 80) + '...'
-                  : deviance.customerContext}
+                  : deviation.customerContext}
               </p>
               {deviation.aiRiskScore && (
                 <div>
