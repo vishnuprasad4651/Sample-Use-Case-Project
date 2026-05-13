@@ -1,0 +1,175 @@
+# User Stories - AI-Assisted Service Deviation & Approval Workflow
+# Domain Specific Language (DSL) - YAML Format
+
+user_stories:
+  - id: US001
+    role: Initiator
+    story: |
+      As an Initiator, I want to create a new deviation request by selecting deviation type
+      and providing customer context so that I can initiate a formal deviation process.
+    acceptance_criteria:
+      - "Can select deviation type from dropdown (BILLING_CREDIT, BANDWIDTH_INCREASE, SLA_WAIVER, CONTENT_EXCEPTION, KYC_DEFERRAL)"
+      - "Can input customer context in text field"
+      - "Can save as draft before submission"
+      - "Form validation prevents empty required fields"
+    priority: High
+    status: pending
+
+  - id: US002
+    role: Initiator
+    story: |
+      As an Initiator, I want to use the AI Agent to generate a business justification
+      so that I can quickly create a compliance-friendly explanation for my deviation request.
+    acceptance_criteria:
+      - "AI Action Panel displays 'Generate Justification with AI' button"
+      - "Clicking button calls GenAI endpoint and populates justification text area"
+      - "User can edit AI-generated justification (Human-in-the-loop)"
+      - "Original AI output is logged for audit purposes"
+    priority: High
+    status: pending
+
+  - id: US003
+    role: Initiator
+    story: |
+      As an Initiator, I want to view the status of my submitted deviation requests
+      so that I can track progress through the approval workflow.
+    acceptance_criteria:
+      - "Dashboard displays list of user's deviations with current status"
+      - "Status shown as: DRAFT, PENDING_OPS, PENDING_FINANCE, PENDING_COMPLIANCE, APPROVED, REJECTED"
+      - "Can view deviation history and audit trail"
+    priority: Medium
+    status: pending
+
+  - id: US004
+    role: Ops Approver
+    story: |
+      As an Ops Approver, I want to view pending deviation requests assigned to me
+      so that I can review and approve or reject them.
+    acceptance_criteria:
+      - "Dashboard shows 'Pending My Approval' section"
+      - "Can view deviation details including AI risk score and policy matches"
+      - "Can approve with comments"
+      - "Can reject with mandatory comments explaining reason"
+    priority: High
+    status: pending
+
+  - id: US005
+    role: Ops Approver
+    story: |
+      As an Ops Approver, I want to override the AI risk score when I disagree
+      so that my professional judgment takes precedence over AI recommendation.
+    acceptance_criteria:
+      - "Risk score display shows 'Override' option"
+      - "Override requires mandatory justification text"
+      - "Override action is logged in audit trail"
+      - "System tracks who overrode and when"
+    priority: Medium
+    status: pending
+
+  - id: US006
+    role: Finance Approver
+    story: |
+      As a Finance Approver, I want to review billing-related deviations
+      so that I can ensure financial compliance and approval.
+    acceptance_criteria:
+      - "Receives notifications for PENDING_FINANCE status"
+      - "Can view all deviation details including AI analysis"
+      - "Can approve or reject with comments"
+      - "Can escalate to Compliance if needed"
+    priority: High
+    status: pending
+
+  - id: US007
+    role: Network Approver
+    story: |
+      As a Network Approver, I want to review network/bandwidth-related deviations
+      so that I can ensure technical feasibility and approval.
+    acceptance_criteria:
+      - "Receives notifications for network-type deviations"
+      - "Can view technical details and AI policy matches"
+      - "Can approve or reject with technical comments"
+    priority: High
+    status: pending
+
+  - id: US008
+    role: Compliance Approver
+    story: |
+      As a Compliance Approver, I want to perform final review of all deviations
+      so that I can ensure regulatory compliance before final approval.
+    acceptance_criteria:
+      - "Sees all deviations in PENDING_COMPLIANCE state"
+      - "Can view complete audit trail of all actions"
+      - "Can override any previous approval with justification"
+      - "Final approval triggers notification to Initiator"
+    priority: High
+    status: pending
+
+  - id: US009
+    role: System
+    story: |
+      As the System, I want to automatically log all actions and state changes
+      so that complete audit trail is maintained for compliance.
+    acceptance_criteria:
+      - "Every deviation action creates audit log entry"
+      - "Logs include: actor, action, timestamp, before/after values"
+      - "Audit logs are immutable and exportable"
+      - "Compliance reports can be generated on demand"
+    priority: High
+    status: pending
+
+  - id: US010
+    role: Initiator
+    story: |
+      As an Initiator, I want to receive notifications when my deviation status changes
+      so that I am informed of approval or rejection decisions.
+    acceptance_criteria:
+      - "Email notification on status change"
+      - "In-app notification badge on dashboard"
+      - "Notification includes: deviation ID, new status, approver comments"
+    priority: Medium
+    status: pending
+
+  - id: US011
+    role: Compliance Approver
+    story: |
+      As a Compliance Approver, I want to view compliance dashboard with exception metrics
+      so that I can monitor deviation patterns and ensure policy adherence.
+    acceptance_criteria:
+      - "Dashboard shows deviation count by type, status, risk level"
+      - "Exception report shows all bypassed AI recommendations"
+      - "Monthly trend analysis available"
+    priority: Medium
+    status: pending
+
+  - id: US012
+    role: Initiator
+    story: |
+      As an Initiator, I want to resubmit a rejected deviation after addressing concerns
+      so that I can complete the deviation request process.
+    acceptance_criteria:
+      - "Can view rejection reason in history"
+      - "Can edit and resubmit from REJECTED state"
+      - "Resubmission creates new version with original audit trail preserved"
+    priority: Low
+    status: pending
+
+epics:
+  - id: EPIC001
+    name: Deviation Initiation
+    description: Enable Initiators to create and submit deviation requests
+    user_stories: [US001, US002, US003]
+
+  - id: EPIC002
+    name: AI-Assisted Decision Support
+    description: Integrate AI for justification, policy matching, and risk scoring
+    user_stories: [US002, US005]
+
+  - id: EPIC003
+    name: Multi-Level Approval Workflow
+    description: Implement role-based approval hierarchy with state transitions
+    user_stories: [US004, US006, US007, US008]
+
+  - id: EPIC004
+    name: Audit & Compliance
+    description: Maintain complete audit trail and compliance reporting
+    user_stories: [US009, US010, US011, US012]
